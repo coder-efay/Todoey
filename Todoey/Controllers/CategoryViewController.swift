@@ -12,7 +12,7 @@ import RealmSwift
 
 class CategoryViewController: UITableViewController {
 
-    let realm = try! Realm()
+    let realm = try! Realm()    // initiate the realm data source method
     
     var categoryArray : Results<Category>?   // how to change from ! to ?
     
@@ -24,6 +24,8 @@ class CategoryViewController: UITableViewController {
        loadCategories() // it loads all the data fetched from the database after the view did load
     
     }
+    
+    
     //MARK: - TableView Datasource Methods
 
     
@@ -71,7 +73,7 @@ class CategoryViewController: UITableViewController {
     func save(category: Category) {
         
         do {
-            try realm.write {
+            try realm.write {      //realm.write to update the data
                 realm.add(category)
             }
             
@@ -83,6 +85,7 @@ class CategoryViewController: UITableViewController {
         
         tableView.reloadData()
     }
+    
     
     // how to read data from CoreDatabase
     func loadCategories() {

@@ -95,7 +95,9 @@ class TodoListViewController: UITableViewController {
                     try self.realm.write {
                     let newItem = Item()
                     newItem.title = textField.text!
+                    newItem.dateCreated = Date()
                     currentCategory.items.append(newItem)
+                    
                 }
                 }catch {
                     print("Error saving new items, \(error)")
@@ -125,6 +127,8 @@ class TodoListViewController: UITableViewController {
         
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         
+        
+        
 
         tableView.reloadData() // always remember to reloaddata after you change the data
     }
@@ -137,8 +141,8 @@ extension TodoListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // how to query data using filter
         
-        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
-        
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+        tableView.reloadData()
     }
 
 
